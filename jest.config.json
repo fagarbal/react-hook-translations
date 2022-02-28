@@ -1,0 +1,11 @@
+{
+	"preset": "ts-jest",
+	"testEnvironment": "jsdom",
+	"setupFilesAfterEnv": [
+		"@testing-library/react-hooks/dont-cleanup-after-each.js"
+	],
+	"collectCoverageFrom": [
+		"**/src/*.{ts,tsx}"
+	],
+	"verbose": true
+}
