@@ -1,5 +1,7 @@
 # react-hook-translations
 
+Simple translations manager for React using the potential of React-Hooks and autocompletion.
+
 ## Installing
 
 ```
@@ -43,6 +45,7 @@ export const {
 
 ```tsx
 // App.tsx
+
 import { TranslationsProvider } from './translations.config.ts';
 import CustomComponent from './CustomComponent.tsx';
 
@@ -62,6 +65,7 @@ export default App;
 
 ```tsx
 // CustomComponent.tsx
+
 import { makeTranslations } from './translations.config.ts';
 
 const useTranslations = makeTranslations({
@@ -94,6 +98,7 @@ export default CustomComponent;
 
 ```tsx
 // CustomComponent.tsx
+
 import { useLocale } from './translations.config.ts';
 
 const useTranslations = makeTranslations({
@@ -117,6 +122,7 @@ const useTranslations = makeTranslations({
 
 const CustomComponent: React.FC = () => {
   const [locale, setLocale, locales] = useLocale();
+  const translations = useTranslations();
 
   return (
     <div>
@@ -130,6 +136,44 @@ const CustomComponent: React.FC = () => {
           <span>{translations.languages[lang]}</span>
         </button>
       )}
+    </div>
+  );
+}
+
+export default CustomComponent;
+
+```
+
+## Examples
+
+### JSX translations
+
+```tsx
+// CustomComponent.tsx
+
+import { makeTranslations } from './translations.config.ts';
+
+const useTranslations = makeTranslations({
+  en: {
+    Title: <strong>Title</strong>,
+    messages: (num: number) => <i>You have {num} messages</i>,
+    AboutUs: ({ link }: { link: string }) => <a href={link}>About us</a>,
+  },
+  es: {
+    Title: <strong>Titulo</strong>,
+    messages: (num: number) => <i>Tienes {num} mensajes</i>,
+    AboutUs: ({ link }: { link: string }) => <a href={link}>Sobre nosotros</a>,
+  },
+});
+
+const CustomComponent: React.FC = () => {
+  const translations = useTranslations();
+
+  return (
+    <div>
+      <translations.Title />
+      {translations.messages(3)}
+      <translations.Description link="https://github.com" />
     </div>
   );
 }
