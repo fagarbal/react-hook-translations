@@ -1,7 +1,7 @@
 
 
 import { act } from '@testing-library/react-hooks';
-import { initWithTranslationsConfiguration, initWithUseRouteTranslations, languageGetter, translationsConfig } from './config.mock';
+import { initWithTranslationsConfiguration, languageGetter, translationsConfig } from './config.mock';
 
 describe('Hooks', () => {
 	beforeEach(() => {
@@ -137,30 +137,5 @@ describe('Hooks', () => {
 		});
 
 		expect(result.current.translations.jsxWithParams(1)).toStrictEqual(<>Hola 1</>);
-	});
-
-	test('Should change the language using useRouteTranslation hook', () => {
-		const result = initWithUseRouteTranslations({
-			locales: ['en', 'es'],
-		}, 'es');
-
-		expect(result.current.locale).toBe('es');
-	});
-
-	test('Should change to first locale if useRouteTranslation has not a valid locale', () => {
-		const result = initWithUseRouteTranslations({
-			locales: ['en', 'es'],
-		}, 'de');
-
-		expect(result.current.locale).toBe('en');
-	});
-
-	test('Should change to fallback locale if useRouteTranslation has not a valid locale', () => {
-		const result = initWithUseRouteTranslations({
-			locales: ['es', 'en'],
-			fallback: 'en',
-		}, 'de');
-
-		expect(result.current.locale).toBe('en');
 	});
 });

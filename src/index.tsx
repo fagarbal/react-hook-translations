@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { createContext, useContext, useState } from 'react';
 
 export type TranslationsConfig<T> = {
@@ -73,21 +72,10 @@ export function initTranslations<T extends string>(config: TranslationsConfig<T>
 		);
 	};
 
-	const useRouteTranslations = (param: string) => {
-		const [locale, setLocale] = useLocale();
-
-		useEffect(() => {
-			if (config.locales.includes(param as LocaleUnion) && locale !== param) {
-				setLocale(param as LocaleUnion);
-			}
-		}, [param]);
-	};
-
 	return {
 		locales: config.locales,
 		makeTranslations,
 		TranslationsProvider,
 		useLocale,
-		useRouteTranslations,
 	};
 }

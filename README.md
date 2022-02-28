@@ -41,7 +41,6 @@ export const {
     useLocale,
     makeTranslations,
     TranslationsProvider,
-    useRouteTranslations,
     locales,
 } = translations;
 

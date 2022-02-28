@@ -35,30 +35,12 @@ export function initWithConfiguration<T extends string>(config: TranslationsConf
 	return result;
 }
 
-export function initWithUseRouteTranslations<T extends string>(config: TranslationsConfig<T>, initLocale: string) {
-	const { TranslationsProvider, useLocale, useRouteTranslations } = initTranslations(config);
-
-	const wrapper: React.FC = ({ children }) => <TranslationsProvider>{children}</TranslationsProvider>;
-
-	const { result } = renderHook(() => {
-		useRouteTranslations(initLocale);
-		const [locale, setLocale] = useLocale();
-
-		return {
-			locale,
-			setLocale,
-		};
-	}, { wrapper });
-
-	return result;
-}
-
 export function initWithTranslationsConfiguration<T extends string, P>(config: TranslationsConfig<T>, translationsConfig: {
 	[key in T]: {
 		[key in keyof P]: P[key];
 	}
 }) {
-	const { TranslationsProvider, makeTranslations, useLocale, useRouteTranslations, locales } = initTranslations(config);
+	const { TranslationsProvider, makeTranslations, useLocale, locales } = initTranslations(config);
 
 	const wrapper: React.FC = ({ children }) => <TranslationsProvider>{children}</TranslationsProvider>;
 
@@ -72,7 +54,6 @@ export function initWithTranslationsConfiguration<T extends string, P>(config: T
 			globalLocales: locales,
 			setLocale,
 			translations,
-			useRouteTranslations,
 		};
 	}, { wrapper });
 

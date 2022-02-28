@@ -1,4 +1,4 @@
-import React from 'react';
+/// <reference types="react" />
 export declare type TranslationsConfig<T> = {
     locales: T[];
     fallback?: TranslationsConfig<T>['locales'][number];
@@ -8,8 +8,7 @@ export declare type TranslationsConfig<T> = {
 export declare function initTranslations<T extends string>(config: TranslationsConfig<T>): {
     locales: T[];
     makeTranslations: <P>(translations: { [key in T]: { [key_1 in keyof P]: P[key_1]; }; }) => () => { [key in T]: { [key_1 in keyof P]: P[key_1]; }; }[T];
-    TranslationsProvider: React.FC<{}>;
+    TranslationsProvider: import("react").FC<{}>;
     useLocale: () => [T, (locale: T) => void, T[]];
-    useRouteTranslations: (param: string) => void;
 };
 //# sourceMappingURL=index.d.ts.map
