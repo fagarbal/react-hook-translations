@@ -162,13 +162,13 @@ import { makeTranslations } from './translations.config.ts';
 const useTranslations = makeTranslations({
   en: {
     title: <strong>Title</strong>,
-	User: () => <strong>User</strong>,
+    User: () => <strong>User</strong>,
     messages: (num: number) => <i>You have {num} messages</i>,
     AboutUs: ({ link }: { link: string }) => <a href={link}>About us</a>,
   },
   es: {
     title: <strong>Titulo</strong>,
-	User: () => <strong>Usuario</strong>,
+    User: () => <strong>Usuario</strong>,
     messages: (num: number) => <i>Tienes {num} mensajes</i>,
     AboutUs: ({ link }: { link: string }) => <a href={link}>Sobre nosotros</a>,
   },
