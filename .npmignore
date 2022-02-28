@@ -1,5 +1,6 @@
 test
-jest.config.js
+jest.config.json
+coverage
 tsconfig.json
 .editorconfig
 src
