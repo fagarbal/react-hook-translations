@@ -1,6 +1,6 @@
 {
 	"name": "react-hook-translations",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -10,6 +10,10 @@
 	},
 	"author": "Fabio Garcia Balbuena",
 	"license": "ISC",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/fagarbal/react-hook-translations"
+	},
 	"description": "Simple translations manager for React using the potential of React-Hooks and autocompletion",
 	"devDependencies": {
 		"@testing-library/react-hooks": "^7.0.2",
