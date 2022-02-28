@@ -1,5 +1,7 @@
 # react-hook-translations
 
+[![Coverage Status](https://coveralls.io/repos/github/fagarbal/react-hook-translations/badge.svg?branch=main)](https://coveralls.io/github/fagarbal/react-hook-translations?branch=main)
+
 Simple translations manager for React using the potential of React-Hooks and autocompletion.
 
 ## Installing
