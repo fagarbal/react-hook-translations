@@ -26,5 +26,11 @@
 	},
 	"dependencies": {
 		"react": "^17.0.1"
-	}
+	},
+	"keywords": [
+		"i18n",
+		"react-hooks",
+		"react",
+		"translations"
+	]
 }
