@@ -12,7 +12,7 @@ npm install react-hook-translations
 
 By default it tries to use the locale returned by `window.navigator.language`, otherwise it takes the defined fallback attribute.
 
-### Config
+### Configuration File
 
 ```ts
 // translations.config.ts
