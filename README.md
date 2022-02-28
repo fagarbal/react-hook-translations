@@ -2,6 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/react-hook-translations.svg)](https://badge.fury.io/js/react-hook-translations)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Coverage Status](https://coveralls.io/repos/github/fagarbal/react-hook-translations/badge.svg?branch=main)](https://coveralls.io/github/fagarbal/react-hook-translations?branch=main)
 [![Test](https://github.com/fagarbal/react-hook-translations/actions/workflows/npm-test.yml/badge.svg?branch=main)](https://github.com/fagarbal/react-hook-translations/actions/workflows/npm-test.yml)
 
 Simple translations manager for React using the potential of React-Hooks and autocompletion.
