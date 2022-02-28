@@ -6,7 +6,7 @@ describe('Storage', () => {
 	describe('localStorage', () => {
 		beforeEach(() => {
 			languageGetter.mockReturnValue('en-EN');
-			localStorage.clear();
+			window.localStorage.clear();
 		});
 
 		test('Should be saved with the key "locale"', () => {
@@ -56,13 +56,23 @@ describe('Storage', () => {
 		});
 
 		test('Should override with a valid locale', () => {
-			localStorage.setItem('locale', 'de');
+			window.localStorage.setItem('locale', 'de');
 
 			initTranslations({
 				locales: ['en', 'es'],
 			});
 
 			expect(window.localStorage.getItem('locale')).toBe('en');
+		});
+
+		test('Should load localStorage value ', () => {
+			window.localStorage.setItem('locale', 'es');
+
+			initTranslations({
+				locales: ['en', 'es'],
+			});
+
+			expect(window.localStorage.getItem('locale')).toBe('es');
 		});
 
 		test('Should be saved with the custom "storageKey"', () => {
@@ -114,7 +124,7 @@ describe('Storage', () => {
 
 	describe('sessionStorage', () => {
 		beforeEach(() => {
-			sessionStorage.clear();
+			window.sessionStorage.clear();
 			languageGetter.mockReturnValue('en-EN');
 		});
 
@@ -170,7 +180,7 @@ describe('Storage', () => {
 		});
 
 		test('Should override with a valid locale', () => {
-			localStorage.setItem('locale', 'de');
+			window.localStorage.setItem('locale', 'de');
 
 			initTranslations({
 				locales: ['en', 'es'],
@@ -178,6 +188,17 @@ describe('Storage', () => {
 			});
 
 			expect(window.sessionStorage.getItem('locale')).toBe('en');
+		});
+
+		test('Should load sessionStorage value ', () => {
+			window.sessionStorage.setItem('locale', 'es');
+
+			initTranslations({
+				locales: ['en', 'es'],
+				storage: 'sessionStorage',
+			});
+
+			expect(window.sessionStorage.getItem('locale')).toBe('es');
 		});
 
 		test('Should be saved with the custom "storageKey"', () => {

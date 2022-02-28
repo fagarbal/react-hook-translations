@@ -10,6 +10,9 @@ npm install react-hook-translations
 
 ## Setup
 
+By default it tries to use the locale returned by `window.navigator.language`, otherwise it takes the defined fallback attribute.
+
+### Config
 ```ts
 // translations.config.ts
 
@@ -42,6 +45,8 @@ export const {
 } = translations;
 
 ```
+
+### Context Provider
 
 ```tsx
 // App.tsx
@@ -99,7 +104,7 @@ export default CustomComponent;
 ```tsx
 // CustomComponent.tsx
 
-import { useLocale } from './translations.config.ts';
+import { useLocale, makeTranslations } from './translations.config.ts';
 
 const useTranslations = makeTranslations({
   en: {
@@ -155,12 +160,14 @@ import { makeTranslations } from './translations.config.ts';
 
 const useTranslations = makeTranslations({
   en: {
-    Title: <strong>Title</strong>,
+    title: <strong>Title</strong>,
+	User: () => <strong>User</strong>,
     messages: (num: number) => <i>You have {num} messages</i>,
     AboutUs: ({ link }: { link: string }) => <a href={link}>About us</a>,
   },
   es: {
-    Title: <strong>Titulo</strong>,
+    title: <strong>Titulo</strong>,
+	User: () => <strong>Usuario</strong>,
     messages: (num: number) => <i>Tienes {num} mensajes</i>,
     AboutUs: ({ link }: { link: string }) => <a href={link}>Sobre nosotros</a>,
   },
@@ -171,9 +178,10 @@ const CustomComponent: React.FC = () => {
 
   return (
     <div>
-      <translations.Title />
+      {translations.title}
+      <translations.User />
       {translations.messages(3)}
-      <translations.Description link="https://github.com" />
+      <translations.AboutUs link="https://github.com" />
     </div>
   );
 }
