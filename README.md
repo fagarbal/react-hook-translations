@@ -33,12 +33,12 @@ const translations = initTranslations({
     storage: 'localStorage',
     // optional
     // default: localStorage
-    // options: localStorage | sessionStorage
+    // options: localStorage | sessionStorage | cookies
 
     storageKey: 'locale',
     // optional
     // default: locale
-    // key used for storing data into localStorage or sessionStorage
+    // key used for storing data into localStorage, sessionStorage or cookie
 });
 
 export const {

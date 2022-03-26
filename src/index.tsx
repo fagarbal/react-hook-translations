@@ -1,32 +1,42 @@
 import { createContext, useContext, useState } from 'react';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 export type TranslationsConfig<T> = {
 	locales: T[];
 	fallback?: TranslationsConfig<T>['locales'][number];
-	storage?: 'localStorage' | 'sessionStorage';
+	storage?: 'localStorage' | 'sessionStorage' | 'cookie';
 	storageKey?: string;
 };
 
 export function initTranslations<T extends string>(config: TranslationsConfig<T>) {
 	type LocaleUnion = typeof config.locales[number];
 
+	const locales = config.locales;
+	const fallback = config.fallback;
 	const storage = config.storage || 'localStorage';
 	const storageKey = config.storageKey || 'locale';
 
-	config.fallback = config.fallback || config.locales[0];
-
-	const browserLang = config.locales.find(
+	const browserLocale = locales.find(
 		(locale) => locale === navigator.language.split('-')[0]
 	);
-	const storageValue = config.locales.find(
-		(locale) => locale === window[storage].getItem(storageKey)
+
+	const storageValue = storage === 'cookie' ? cookies.get(storageKey) : window[storage].getItem(storageKey);
+
+	const storageLocale = locales.find(
+		(locale) => locale === storageValue
 	);
 
-	const selectedLang =
-		storageValue || browserLang || config.fallback;
+	const selectedLocale =
+		storageLocale || browserLocale || fallback || locales[0];
 
-	if (!storageValue) {
-		window[storage].setItem(storageKey, selectedLang);
+	if (!storageLocale) {
+		if (storage === 'cookie') {
+			cookies.set(storageKey, selectedLocale);
+		} else {
+			window[storage].setItem(storageKey, selectedLocale);
+		}
 	}
 
 	const localeContext = createContext<
@@ -35,45 +45,42 @@ export function initTranslations<T extends string>(config: TranslationsConfig<T>
 
 	const useLocale = () => useContext(localeContext);
 
-	function makeTranslations<P>(
+	const makeTranslations = <P extends unknown>(
 		translations: {
 			[key in LocaleUnion]: {
 				[key in keyof P]: P[key];
 			};
 		},
-	) {
-		return () => {
-			const [state] = useState(translations);
-			const [lang] = useLocale();
+	) => () => {
+		const [lang] = useLocale();
 
-			return (
-				state[lang as LocaleUnion]
-			);
-		};
-	}
+		return translations[lang];
+	};
 
 	const TranslationsProvider: React.FC = ({ children }) => {
-		const [locale, _setLocale] = useState(selectedLang);
+		const [locale, _setLocale] = useState(selectedLocale);
 
 		const setLocale = (lang: LocaleUnion) => {
-			if (config.locales.includes(lang) && locale !== lang) {
-				window[storage].setItem(storageKey, lang);
-				_setLocale(lang);
+			const isValidLocale = locales.includes(lang) && locale !== lang;
+			const value = isValidLocale ? lang : selectedLocale;
+
+			if (storage === 'cookie') {
+				cookies.set(storageKey, value);
 			} else {
-				window[storage].setItem(storageKey, config.fallback as LocaleUnion);
-				_setLocale(config.fallback as LocaleUnion);
+				window[storage].setItem(storageKey, value);
 			}
+			_setLocale(value);
 		};
 
 		return (
-			<localeContext.Provider value={[locale, setLocale, config.locales]}>
+			<localeContext.Provider value={[locale, setLocale, locales]}>
 				{children}
 			</localeContext.Provider>
 		);
 	};
 
 	return {
-		locales: config.locales,
+		locales,
 		makeTranslations,
 		TranslationsProvider,
 		useLocale,

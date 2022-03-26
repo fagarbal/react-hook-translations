@@ -70,7 +70,7 @@ describe('Hooks', () => {
 		expect(result.current.translations.text).toBe('Hola');
 	});
 
-	test('Should load first locale if changed language not found', () => {
+	test('Should keep locale if changed language not found', () => {
 		const result = initWithTranslationsConfiguration({
 			locales: ['en', 'es'],
 		}, translationsConfig);
@@ -83,7 +83,7 @@ describe('Hooks', () => {
 		expect(result.current.translations.text).toBe('Hello');
 	});
 
-	test('Should load fallback locale if changed language not found', () => {
+	test('Should keep locale when fallback is present if changed language not found', () => {
 		const result = initWithTranslationsConfiguration({
 			locales: ['en', 'es'],
 			fallback: 'es',
@@ -93,8 +93,8 @@ describe('Hooks', () => {
 			result.current.setLocale('de' as any);
 		});
 
-		expect(result.current.locale).toBe('es');
-		expect(result.current.translations.text).toBe('Hola');
+		expect(result.current.locale).toBe('en');
+		expect(result.current.translations.text).toBe('Hello');
 	});
 
 	test('Should show text with params', () => {
