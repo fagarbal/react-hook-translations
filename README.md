@@ -33,7 +33,7 @@ const translations = initTranslations({
     storage: 'localStorage',
     // optional
     // default: localStorage
-    // options: localStorage | sessionStorage | cookies
+    // options: localStorage | sessionStorage | cookie
 
     storageKey: 'locale',
     // optional
