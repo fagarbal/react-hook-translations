@@ -3,5 +3,4 @@ jest.config.json
 coverage
 tsconfig.json
 .editorconfig
-src
 .github
